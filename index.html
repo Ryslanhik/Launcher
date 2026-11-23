@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="graphite">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nova Launcher</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- Иконки: один спрайт на весь интерфейс -->
+<svg xmlns="http://www.w3.org/2000/svg" class="sprite" aria-hidden="true">
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="m3 12 9 5 9-5"/><path d="m3 16 9 5 9-5"/></symbol>
+  <symbol id="i-cube" viewBox="0 0 24 24"><path d="m12 2 9 5v10l-9 5-9-5V7l9-5Z"/><path d="m3 7 9 5 9-5M12 12v10"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M3 7h18v13H3zM3 7l2-4h14l2 4M9 11h6"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h3M11 12h9M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+  <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h2a2 2 0 0 0 0-4h-1a2 2 0 0 1 0-4h6a2 2 0 0 0 2-2A8 8 0 0 0 12 3Z"/><circle cx="7.5" cy="11.5" r="1"/><circle cx="10" cy="7.5" r="1"/><circle cx="15" cy="8" r="1"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6h7l2 2h9v11H3z"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="m4 20 4-1 11-11-3-3L5 16l-1 4Z"/><path d="m14 6 3 3"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14"/></symbol>
+  <symbol id="i-power" viewBox="0 0 24 24"><path d="M12 3v9"/><path d="M6.3 6.3a8 8 0 1 0 11.4 0"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-min" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-max" viewBox="0 0 24 24"><path d="M5 5h14v14H5z"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2 6"/><path d="M20 4v7h-7"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-terminal" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="m7 9 3 3-3 3M13 15h4"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9 2 2-2 2 2 2-3 3-2-2-2 2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+  <symbol id="i-sort" viewBox="0 0 24 24"><path d="M4 7h16M7 12h10M10 17h4"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+</svg>
+
+<div id="app">
+  <!-- БОКОВАЯ ПАНЕЛЬ -->
+  <aside id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">N<span>.</span></div>
+      <div class="brand-copy"><strong>NOVA</strong><small>LAUNCHER · 1.0</small></div>
+    </div>
+
+    <nav id="nav">
+      <div class="nav-label">РАБОЧЕЕ ПРОСТРАНСТВО</div>
+      <button class="nav-item active" data-page="play"><svg><use href="#i-play"/></svg><span class="label">Играть</span></button>
+      <button class="nav-item" data-page="mods"><svg><use href="#i-cube"/></svg><span class="label">Каталог модов</span></button>
+      <button class="nav-item" data-page="modpacks"><svg><use href="#i-box"/></svg><span class="label">Модпаки</span></button>
+      <div class="nav-label">СИСТЕМА</div>
+      <button class="nav-item" data-page="accounts"><svg><use href="#i-user"/></svg><span class="label">Аккаунты</span></button>
+      <button class="nav-item" data-page="settings"><svg><use href="#i-sliders"/></svg><span class="label">Настройки</span></button>
+      <button class="nav-item" data-page="appearance"><svg><use href="#i-palette"/></svg><span class="label">Оформление</span></button>
+      <button class="nav-item" data-page="about"><svg><use href="#i-info"/></svg><span class="label">О программе</span></button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <button id="accountMini" class="account-mini">
+        <span class="avatar" id="miniAvatar">P</span>
+        <span class="mini-copy"><b id="miniName">Player</b><small id="miniType">ОФЛАЙН</small></span>
+        <svg class="mini-chev"><use href="#i-right"/></svg>
+      </button>
+      <div class="sidebar-foot">BUILD 1.0.0 · ELECTRON</div>
+    </div>
+  </aside>
+
+  <!-- ОСНОВНАЯ ОБЛАСТЬ -->
+  <div id="main">
+    <header id="titlebar">
+      <div class="title-left"><span class="title-mark"></span><span id="crumb">Играть</span></div>
+      <div class="title-right">
+        <span id="statusText" class="status-text">ГОТОВО</span>
+        <div class="window-controls">
+          <button id="winMin" title="Свернуть"><svg><use href="#i-min"/></svg></button>
+          <button id="winMax" title="Развернуть"><svg><use href="#i-max"/></svg></button>
+          <button id="winClose" title="Закрыть"><svg><use href="#i-x"/></svg></button>
+        </div>
+      </div>
+    </header>
+
+    <div id="pages">
+      <!-- ИГРАТЬ -->
+      <section class="page active" id="page-play">
+        <div class="page-head">
+          <div><div class="eyebrow">СЕАНС / 01</div><h1>Играть</h1><p>Профили и запуск игрового клиента</p></div>
+          <button id="btnNewInstance" class="btn btn-primary"><svg><use href="#i-plus"/></svg>Новый профиль</button>
+        </div>
+
+        <div class="play-grid">
+          <div class="panel">
+            <div class="panel-head"><span>ПРОФИЛИ</span><span id="instanceCount" class="counter">0</span></div>
+            <div id="instanceList" class="instance-list"></div>
+            <button class="list-add" id="btnAddInstanceInline"><svg><use href="#i-plus"/></svg> Добавить профиль</button>
+          </div>
+          <div class="panel detail-panel" id="heroPanel">
+            <div class="detail-head">
+              <div class="detail-index">086</div>
+              <div class="detail-title">ВЫБРАННЫЙ ПРОФИЛЬ</div>
+              <svg class="detail-glyph"><use href="#i-layers"/></svg>
+            </div>
+            <div id="heroBody"></div>
+          </div>
+        </div>
+
+        <div class="panel console-panel">
+          <div class="panel-head">
+            <span><svg class="inline-ico"><use href="#i-terminal"/></svg> КОНСОЛЬ</span>
+            <span class="head-actions">
+              <button id="btnClearLog" class="text-btn">Очистить</button>
+              <button id="btnKill" class="text-btn danger">Завершить процесс</button>
+            </span>
+          </div>
+          <pre id="console"></pre>
+        </div>
+      </section>
+
+      <!-- КАТАЛОГ МОДОВ -->
+      <section class="page" id="page-mods">
+        <div class="page-head">
+          <div><div class="eyebrow">РЕЕСТР / МОДЫ</div><h1>Каталог модов</h1><p>Modrinth и CurseForge в одном месте</p></div>
+          <select id="modInstance" class="input compact-input"></select>
+        </div>
+
+        <div class="catalog-hero">
+          <div class="ch-copy">
+            <div class="eyebrow">ПОДБОРКА РЕДАКЦИИ</div>
+            <h2>Сначала производительность</h2>
+            <p>Минимальный набор, который ускоряет клиент и не ломает совместимость с большинством модпаков.</p>
+            <button class="btn btn-primary" data-collection="perf"><svg><use href="#i-bolt"/></svg>Применить подборку</button>
+          </div>
+          <div class="ch-items" id="catalogFeatured"></div>
+        </div>
+
+        <div class="collections" id="catalogCollections"></div>
+
+        <div class="catalog-controls">
+          <div class="seg" id="catalogSource">
+            <button class="active" data-source="all">Все</button>
+            <button data-source="modrinth">Modrinth</button>
+            <button data-source="curseforge">CurseForge</button>
+          </div>
+          <select id="catalogSort" class="input compact-input">
+            <option value="relevance">По релевантности</option>
+            <option value="downloads">По загрузкам</option>
+            <option value="updated">Недавно обновлённые</option>
+            <option value="newest">Новые</option>
+          </select>
+        </div>
+
+        <div class="catalog-search">
+          <svg class="search-ico"><use href="#i-search"/></svg>
+          <input id="modSearch" class="input" placeholder="Имя мода, например sodium или jei" />
+          <button id="btnModSearch" class="btn btn-primary">Найти</button>
+        </div>
+
+        <div class="category-row" id="catalogCategories"></div>
+        <div class="result-meta"><span id="modFilterInfo">—</span><span id="catalogCount"></span></div>
+
+        <div id="modResults" class="mod-grid"></div>
+        <div class="pager">
+          <button id="modPrev" class="btn btn-ghost"><svg><use href="#i-left"/></svg>Назад</button>
+          <span id="modPage">01</span>
+          <button id="modNext" class="btn btn-ghost">Вперёд<svg><use href="#i-right"/></svg></button>
+        </div>
+
+        <div class="panel installed-panel">
+          <div class="panel-head"><span>УСТАНОВЛЕНО В ПРОФИЛЕ</span><span id="installedCount" class="counter">0</span></div>
+          <div id="installedMods" class="installed-list"></div>
+        </div>
+      </section>
+
+      <!-- МОДПАКИ -->
+      <section class="page" id="page-modpacks">
+        <div class="page-head"><div><div class="eyebrow">СБОРКИ</div><h1>Модпаки</h1><p>Быстрый старт с готовыми наборами</p></div></div>
+        <div id="modpackList" class="modpack-grid"></div>
+        <div class="panel">
+          <div class="panel-head"><span>ИМПОРТ ВРУЧНУЮ</span></div>
+          <ol class="steps">
+            <li>Скачайте <code>.mrpack</code> (Modrinth) или <code>.zip</code> (CurseForge).</li>
+            <li>Создайте профиль под нужную версию и загрузчик.</li>
+            <li>Нажмите «Установить» в профиле.</li>
+            <li>Распакуйте архив в папку профиля — кнопка «Папка модов» откроет её.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- АККАУНТЫ -->
+      <section class="page" id="page-accounts">
+        <div class="page-head">
+          <div><div class="eyebrow">ДОСТУП</div><h1>Аккаунты</h1><p>Локальный профиль или вход через Ely.by</p></div>
+          <button id="btnAddAccount" class="btn btn-primary"><svg><use href="#i-plus"/></svg>Добавить</button>
+        </div>
+        <div id="accountList" class="account-list"></div>
+        <div class="panel auth-note">
+          <div class="panel-head"><span>О ТИПАХ АККАУНТОВ</span></div>
+          <div class="note-grid">
+            <div><b>ОФЛАЙН</b><p>Локальный профиль с UUID. Не требует входа, подходит для одиночной игры и пользовательских серверов.</p></div>
+            <div><b>ELY.BY</b><p>Полноценная авторизация через Ely.by. Лаунчер получает токен и подключает authlib-injector для входа на серверы с онлайн-режимом Ely.</p></div>
+          </div>
+          <p class="fineprint">Для официальных серверов Mojang/Microsoft требуется лицензионная учётная запись. Проект не содержит обходов авторизации.</p>
+        </div>
+      </section>
+
+      <!-- НАСТРОЙКИ -->
+      <section class="page" id="page-settings">
+        <div class="page-head">
+          <div><div class="eyebrow">КОНФИГУРАЦИЯ</div><h1>Настройки</h1><p>Каталоги, Java, API, поведение</p></div>
+          <button id="btnSaveSettings" class="btn btn-primary"><svg><use href="#i-check"/></svg>Сохранить</button>
+        </div>
+        <div class="settings-grid">
+          <div class="panel">
+            <div class="panel-head"><span>КАТАЛОГ ИГР</span></div>
+            <label class="field">
+              <span>Папка Minecraft</span>
+              <div class="inline"><input id="setGameDir" class="input" /><button id="pickGameDir" class="btn btn-ghost">Обзор</button></div>
+            </label>
+            <label class="field">
+              <span>Исполняемый файл Java</span>
+              <div class="inline"><input id="setJava" class="input" placeholder="auto" /><button id="pickJava" class="btn btn-ghost">Обзор</button></div>
+              <small id="javaDetected">—</small>
+            </label>
+            <label class="field">
+              <span>Выделенная память · <b id="memoryLabel">2048 МБ</b></span>
+              <input id="setMemory" type="range" min="512" max="16384" step="512" />
+            </label>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><span>МАГАЗИНЫ И ПОВЕДЕНИЕ</span></div>
+            <label class="field">
+              <span><svg class="inline-ico"><use href="#i-key"/></svg> CurseForge API-ключ</span>
+              <input id="setCfKey" class="input" type="password" placeholder="api.curseforge.com" />
+              <small>Modrinth работает без ключа. Для CurseForge нужен бесплатный ключ API.</small>
+            </label>
+            <label class="field check"><input id="setShowConsole" type="checkbox" /><span>Показывать консоль</span></label>
+            <label class="field check"><input id="setCloseOnLaunch" type="checkbox" /><span>Сворачивать лаунчер при запуске</span></label>
+            <label class="field check"><input id="setAutoInstall" type="checkbox" /><span>Проверять установку перед запуском</span></label>
+          </div>
+        </div>
+      </section>
+
+      <!-- ОФОРМЛЕНИЕ -->
+      <section class="page" id="page-appearance">
+        <div class="page-head">
+          <div><div class="eyebrow">ИНТЕРФЕЙС</div><h1>Оформление</h1><p>Палитры, фон, плотность</p></div>
+          <button id="btnSaveAppearance" class="btn btn-primary"><svg><use href="#i-check"/></svg>Применить</button>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><span>ПАЛИТРЫ</span><span class="counter">10</span></div>
+          <div id="themeGrid" class="theme-grid"></div>
+        </div>
+        <div class="settings-grid">
+          <div class="panel">
+            <div class="panel-head"><span>АКЦЕНТ И ФОН</span></div>
+            <label class="field inline-field"><span>Акцентный цвет</span><input id="setAccent" type="color" /></label>
+            <label class="field">
+              <span>Фоновое изображение</span>
+              <div class="inline"><button id="pickBg" class="btn btn-ghost">Выбрать файл</button><button id="clearBg" class="btn btn-ghost">Сбросить</button></div>
+              <small id="bgPath">—</small>
+            </label>
+            <div class="bg-presets" id="bgPresets"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><span>ПАРАМЕТРЫ СЕТКИ</span></div>
+            <label class="field">
+              <span>Плотность</span>
+              <select id="setDensity" class="input">
+                <option value="compact">Компактная</option>
+                <option value="comfortable">Обычная</option>
+                <option value="spacious">Просторная</option>
+              </select>
+            </label>
+            <label class="field"><span>Шрифт · <b id="fontLabel">13 px</b></span><input id="setFont" type="range" min="11" max="18" step="1" /></label>
+            <label class="field"><span>Скругления · <b id="radiusLabel">4 px</b></span><input id="setRadius" type="range" min="0" max="16" step="1" /></label>
+          </div>
+        </div>
+      </section>
+
+      <!-- О ПРОГРАММЕ -->
+      <section class="page" id="page-about">
+        <div class="about">
+          <div class="about-mark">N<span>.</span></div>
+          <div class="eyebrow">О ПРОЕКТЕ</div>
+          <h1>Nova Launcher</h1>
+          <p class="about-sub">Десктопный лаунчер Minecraft · сборка 1.0.0</p>
+          <div class="about-grid">
+            <div><svg><use href="#i-cube"/></svg><span>Ваниль, Fabric, Quilt, Forge, NeoForge</span></div>
+            <div><svg><use href="#i-globe"/></svg><span>Каталог Modrinth + CurseForge</span></div>
+            <div><svg><use href="#i-key"/></svg><span>Вход через Ely.by и офлайн-профили</span></div>
+            <div><svg><use href="#i-palette"/></svg><span>10 палитр и настройка сетки</span></div>
+          </div>
+          <p class="about-fine">Лаунчер не распространяет файлы игры: он загружает их с официальных серверов и серверов загрузчиков. Используйте сервис в соответствии с правилами Mojang/Microsoft и Ely.by.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div id="progressOverlay" class="overlay hidden">
+  <div class="progress-box">
+    <div class="progress-head"><span class="pulse"></span><h3 id="progressTitle">Установка</h3></div>
+    <p id="progressStatus">Подготовка</p>
+    <div class="progress-track"><div id="progressBar"></div></div>
+    <small id="progressDetail"></small>
+  </div>
+</div>
+
+<div id="modal" class="overlay hidden">
+  <div class="modal-box">
+    <div class="modal-head"><h3 id="modalTitle"></h3><button id="modalClose" class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+    <div id="modalBody"></div>
+    <div id="modalFoot" class="modal-foot"></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+<script src="renderer.js"></script>
+</body>
+</html>
